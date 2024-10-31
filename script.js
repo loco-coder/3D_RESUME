@@ -8,7 +8,8 @@ const renderer = new THREE.WebGLRenderer({
 
 // Set up the camera controls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-
+const OrbitControls = THREE.OrbitControls;
+controls = new OrbitControls(camera, renderer.domElement);
 // Add some basic lighting
 const ambientLight = new THREE.AmbientLight(0x444444);
 scene.add(ambientLight);
