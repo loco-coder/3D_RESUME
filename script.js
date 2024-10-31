@@ -1,6 +1,3 @@
-// Import necessary libraries
-import * as THREE from 'three';
-
 // Set up the scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -19,36 +16,32 @@ const pointLight = new THREE.PointLight(0xffffff, 1, 100);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
-// Create 3D text for the resume content
-const resumeContent = [
-  {
-    title: 'Summary',
-    text: 'Highly motivated and experienced software developer with a strong passion for innovation and problem-solving.'
-  },
-  {
-    title: 'Skills',
-    text: 'JavaScript, HTML/CSS, React, Node.js, MongoDB, etc.'
-  },
-  {
-    title: 'Experience',
-    text: 'Software Developer at XYZ Corporation (2018-Present)'
-  }
-];
+// Define your resume details as an object
+const resumeDetails = {
+  summary: 'Highly motivated and experienced software developer with a strong passion for innovation and problem-solving.',
+  skills: 'JavaScript, HTML/CSS, React, Node.js, MongoDB, etc.',
+  experience: 'Software Developer at XYZ Corporation (2018-Present)',
+  education: 'Bachelor of Science in Computer Science (2015-2019)'
+};
 
-const textGeometry = new THREE.TextGeometry(resumeContent[0].title, {
-  font: 'Arial',
-  size: 2,
-  height: 0.5
+// Create 3D text for the resume content
+Object.keys(resumeDetails).forEach((key, index) => {
+  const textGeometry = new THREE.TextGeometry(`${key.toUpperCase()}: ${resumeDetails[key]}`, {
+    font: 'Arial',
+    size: 2,
+    height: 0.5
+  });
+  const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+  textMesh.position.set(0, -index * 2, 0);
+  scene.add(textMesh);
 });
-const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-scene.add(textMesh);
 
 // Add interactive elements ( buttons )
 const buttonGeometry = new THREE.BoxGeometry(2, 0.5, 0.5);
 const buttonMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const buttonMesh = new THREE.Mesh(buttonGeometry, buttonMaterial);
-buttonMesh.position.set(0, -2, 0);
+buttonMesh.position.set(0, -5, 0);
 scene.add(buttonMesh);
 
 // Add event listener for button click
@@ -74,4 +67,3 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-		
